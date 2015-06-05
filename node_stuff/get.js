@@ -1,3 +1,6 @@
+// NOTE: This needs to be run with node.js. 
+// Its purpose is to generate/update albu,s.json, which in this repo is a list of all "Best of" albums on Pitchfork.
+
 // // get magnet link...
 var tpb = require('thepiratebay');
 // tpb
@@ -108,7 +111,7 @@ async.eachSeries(
 
 	}, function(err){
 		//callback
-		var write_file = process.cwd() + "/files.json";
+		var write_file = process.cwd() + "/../albums.json";
 		
 		fs.writeFileSync(write_file, JSON.stringify(data_object, null, 4));
 
