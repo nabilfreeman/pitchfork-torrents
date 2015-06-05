@@ -25,5 +25,5 @@ var httpCallback = function(){
 
 var httpRequest = new XMLHttpRequest();
 httpRequest.onload = httpCallback;
-httpRequest.open("get", "/albums.json", true);
+httpRequest.open("get", "albums.json", true);
 httpRequest.send();
