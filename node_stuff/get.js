@@ -3,27 +3,6 @@
 
 // // get magnet link...
 var tpb = require('thepiratebay');
-// tpb
-// 	.search("Ought More Than Any Other Day", {
-// 		category: 100
-// 	})
-// 	.then(function(results){
-// 		if(results.length > 1){
-// 			var top_result = results[0];
-
-// 			console.log(top_result.magnetLink);
-// 		} else {
-// 			console.log("I couldn't find anything");
-// 		}
-// 	})
-// 	.catch(function(err){
-// 		console.log(err);
-// 	});
-
-
-//http://pitchfork.com/reviews/best/albums/11/
-
-
 var request = require("request");
 var jsdom = require("node-jsdom");
 var fs = require("fs");
@@ -65,7 +44,23 @@ var parseData = function(html, callback) {
 
 				album_objects.push(data);
 
-				next_album();
+				tpb
+					.search(data.artist + " " + data.album, {
+						category: 100
+					})
+					.then(function(results){
+						if(results.length > 0){
+							var top_result = results[0];
+
+							data.magnet = top_result.magnetLink;
+						} else {
+							console.log("I couldn't find anything");
+						}
+						next_album();
+					})
+					.catch(function(err){
+						console.log(err);
+					});
 
 			}, function(err){
 				//callback
