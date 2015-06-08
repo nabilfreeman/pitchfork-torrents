@@ -65,6 +65,12 @@ var renderBatch = function(amount){
 			}
 		});
 
+		clicky.querySelector("footer a").addEventListener("click", function(e){
+			if(window.ga !== undefined){
+				ga('send', 'event', 'github link', 'clicked github link');
+			}
+		});
+
 		page.appendChild(clicky);
 	}
 
