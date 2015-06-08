@@ -38,6 +38,12 @@ var renderBatch = function(amount){
 			// el.querySelector("img").setAttribute("src", "");
 			el.querySelector("img").style.backgroundColor = "hsla(" + hue + ", 75%, 75%, 1)";
 
+			el.querySelector("a").addEventListener("click", function(){
+				if(window.ga !== undefined){
+					ga('send', 'event', 'album', 'clicked album');
+				}
+			});
+
 			page.insertBefore(el, get_older_albums);
 
 			rendered += 1;
@@ -53,6 +59,10 @@ var renderBatch = function(amount){
 		clicky.querySelector("button").addEventListener("click", function(e){
 			e.preventDefault();
 			renderBatch(_PT.render_amount);
+
+			if(window.ga !== undefined){
+				ga('send', 'event', 'more button', 'clicked more button');
+			}
 		});
 
 		page.appendChild(clicky);
