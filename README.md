@@ -9,7 +9,7 @@ I first had this idea in 2011, right before I started I started my first busines
 
 Fun fact: In 2011, I spent 3 weeks fruitlessly putting together a Wordpress site... I wrote this entirely in 3 days.
 
-![our universe](https://github.com/nabilfreeman/pitchfork-torrents/raw/gh-pages/front_end_assets/img/space.png)
+![a logo i whipped up](https://github.com/nabilfreeman/pitchfork-torrents/raw/gh-pages/front_end_assets/img/screenshot.jpg)
 
 # running the scraper
     npm install
