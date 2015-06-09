@@ -7,11 +7,14 @@ var request = require("request");
 var jsdom = require("node-jsdom");
 var fs = require("fs");
 var async = require("async");
+var spinner = require("simple-spinner");
 
 var data_object = {
 	last_added: "",
 	albums: []
 };
+
+var not_found_number = 0;
 
 var parseData = function(html, callback) {
 
@@ -30,7 +33,7 @@ var parseData = function(html, callback) {
 		async.eachSeries(
 			albums, 
 			function(album, next_album) {
-				
+
 				var data = {};
 
 				data.artist = album.querySelector(".info h1").innerHTML;
@@ -54,7 +57,7 @@ var parseData = function(html, callback) {
 
 							data.magnet = top_result.magnetLink;
 						} else {
-							console.log("I couldn't find anything");
+							not_found_number += 1;
 						}
 						next_album();
 					})
@@ -79,12 +82,17 @@ var parseData = function(html, callback) {
 	});
 };
 
+//TODO right now i manually figured out that there are 113 pages of BNM on Pitchfork.
+//next time i will once again have to check if there are more pages as a result of new albums.
+//so... it would be cool if this could be automated.
 var last_page = 113;
 
 var numbers = [];
 for(var i = last_page; i > 0; i--){
 	numbers.push(i);
 }
+
+spinner.start();
 
 async.eachSeries(
 	numbers, 
@@ -106,6 +114,11 @@ async.eachSeries(
 
 	}, function(err){
 		//callback
+		spinner.stop();
+
+		console.log("I scraped " + data_object.albums.length + " albums with magnet links!");
+		console.log("I couldn't find a torrent for " + not_found_number + " albums... :(")
+
 		var write_file = process.cwd() + "/../albums.json";
 		
 		fs.writeFileSync(write_file, JSON.stringify(data_object, null, 4));

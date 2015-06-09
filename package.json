@@ -2,7 +2,9 @@
   "name": "Pitchfork-Torrent",
   "version": "0.0.1",
   "author": "freeman",
-  "devDependencies": {},
+  "devDependencies": {
+    "simple-spinner": "0.0.3"
+  },
   "dependencies": {
     "async": "^1.2.0",
     "load-json": "0.0.1",
